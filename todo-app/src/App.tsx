@@ -1,16 +1,13 @@
 import React from 'react';
-import './styles/App.css';
 import { useState } from 'react';
 import Title from './components/Title.tsx';
+import Table from './components/Table.tsx';
 import './styles/Fonts.css';
+import './styles/App.css';
 
 
 export default function App() {
-  const [addItem, newItem] = useState();
-    function handleItem (userInput:string) {
-      let item = <p>{userInput}</p>
-      newItem(startItem => startItem + item)
-    };
+  
     function handleSubmit(e) {
       e.preventDefault();
     
@@ -24,14 +21,18 @@ export default function App() {
   return (
     <>
       <div className='container'>
-        <div><Title></Title></div>
+        <div>
+          <Title value={"My Daily Tasks"}/>
+        </div>
         <div>
           <form method='post' onSubmit={handleSubmit}>
           <label>
-            <input name="myInput" defaultValue="Some initial value" />
+            <input name="myInput" className="myInput" defaultValue="Some initial value" />
           </label>
           <button type="submit" className='addbutton'>Add</button>
           </form>
+          <h2 className='roboto-bold'>Tasks</h2>
+          <Table value={"This is your first task for today"}/>
         </div>
           
       </div>
