@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import Title from './components/Title.tsx';
 import Table from './components/Table.tsx';
@@ -16,8 +15,8 @@ export default function App() {
       const form = e.target;
       const formData = new FormData(form);
 
-      const formJson = Object.fromEntries(formData.entries());
-      console.log(formJson); 
+      const formJson = Object.fromEntries(formData.entries()).myInput;
+      addItem(<Table value={formJson} />)
     }
   return (
     <>
@@ -33,7 +32,7 @@ export default function App() {
           <button type="submit" className='addbutton'>Add</button>
           </form>
           <h2 className='roboto-bold'>Tasks</h2>
-          <Table value={"This is your first task for today"}/>
+          <i>Wow, so empty...</i>
         </div>
           
       </div>

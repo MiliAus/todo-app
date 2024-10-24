@@ -8,7 +8,7 @@ export default function Table({value}) {
         <table>
             <tr>
                 <td>{value} </td>
-                <span className='material-symbols-outlined'>delete</span>
+                <span onClick={()=>{console.log("hello")}}className='material-symbols-outlined'>delete</span>
             </tr>
         </table>
     );
