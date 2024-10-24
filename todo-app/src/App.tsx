@@ -8,7 +8,8 @@ import './styles/App.css';
 
 export default function App() {
   
-    function handleSubmit(e) {
+    const [item, addItem] = useState('');
+    function handleItem(e){
       e.preventDefault();
     
 
@@ -16,8 +17,8 @@ export default function App() {
       const formData = new FormData(form);
 
       const formJson = Object.fromEntries(formData.entries());
-      console.log(formJson);
-    };
+      console.log(formJson); 
+    }
   return (
     <>
       <div className='container'>
@@ -25,7 +26,7 @@ export default function App() {
           <Title value={"My Daily Tasks"}/>
         </div>
         <div>
-          <form method='post' onSubmit={handleSubmit}>
+          <form method='post' onSubmit={handleItem}>
           <label>
             <input name="myInput" className="myInput" defaultValue="Some initial value" />
           </label>
