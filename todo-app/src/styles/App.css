@@ -13,8 +13,30 @@
   font-style: normal;
   margin-left: 5px;
 }
+.clearbutton{
+  color: white;
+  background-color: rgb(128, 129, 128);
+  width: 3rem;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 5px;
+  font-size: medium;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  margin-left: 5px;
+}
+.clearbutton:hover {
+  background-color: rgba(97, 99, 97, 0.637);
+  cursor: pointer;
+}
+.clearbutton:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px #666;
+}
 .addbutton:hover {
   background-color: rgba(4, 160, 4, 0.829);
+  cursor: pointer;
 }
 .addbutton:active {
   transform: translateY(2px);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Title from './components/Title.tsx';
-import Table from './components/Table.tsx';
+import TableRow from './components/Table.tsx';
 import './styles/Fonts.css';
 import './styles/App.css';
 
@@ -19,19 +19,22 @@ export default function App() {
 
       const formJson = Object.fromEntries(formData.entries()).myInput.toString();
       
-      
-        let row = <Table value={formJson} />
+      let row = <TableRow value={formJson} />
 
-        if (counter === 0){
-          
-          addItem(() => [row]);
-          updateCount(counter+1);
-        }
-        else{
-          console.log(item.length)
-          // using the spread operator (...) we can copy all elements
-          addItem(prevItem => [row, ...prevItem] );
-        }
+      if (counter === 0){
+        addItem(() => [row]);
+      
+        updateCount(counter+1);
+      }
+      else{
+        // using the spread operator (...) we can copy all elements
+        addItem(prevItem => [row, ...prevItem] );
+      }
+      
+    }
+    function clearList () {
+      addItem([]);
+      initialValue;
       
     }
   return (
@@ -46,9 +49,12 @@ export default function App() {
             <input name="myInput" className="myInput" placeholder="What is your first task?" />
           </label>
           <button type="submit" className='addbutton'>Add</button>
+          <button onClick={clearList} type="reset" className='clearbutton'>Clear</button>
           </form>
           <h2 className='roboto-bold'>Tasks</h2>
+          <table>
           {item}
+          </table>
         </div>
           
       </div>

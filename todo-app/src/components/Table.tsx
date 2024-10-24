@@ -2,16 +2,13 @@ import '../styles/Fonts.css';
 import '../styles/Table.css';
 
 
-export default function Table({value}) {
 
-    
+export default function TableRow({value}) {
 
     return (
-        <table>
             <tr>
                 <td>{value} </td>
-                <span onClick={()=>{"remove(this)"}}className='material-symbols-outlined'>delete</span>
+                <button className='deletebutton' onClick={()=>{}}><span className='material-symbols-outlined'>delete</span></button>
             </tr>
-        </table>
     );
 }
