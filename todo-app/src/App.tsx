@@ -22,10 +22,15 @@ export default function App() {
       
       let row = <TableRow value={formJson} />
 
-
-      addItem([row])
-      addCount(count+1);
-      console.log(count)
+      if (count === 0){
+        addItem([row])
+        addCount(count+1);
+        console.log(count)
+      }
+      else{
+        console.log(count)
+        addItem(prevCount => [row, ...prevCount])
+      }
       
 
       
@@ -33,6 +38,7 @@ export default function App() {
     function clearList () {
       addItem([])
       addItem(() => [initialValue]);
+      addCount(0)
 
 
     }
