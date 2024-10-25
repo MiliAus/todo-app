@@ -8,7 +8,8 @@ import './styles/App.css';
 export default function App() {
     let initialValue = <i>Wow, so empty...you must be having a chill day.</i>
     const [item, addItem] = useState([initialValue]);
-    const [counter, updateCount] = useState(0);
+    const [count, addCount] = useState(0);
+    
 
     function handleItem(e){
       e.preventDefault();
@@ -21,21 +22,19 @@ export default function App() {
       
       let row = <TableRow value={formJson} />
 
-      if (counter === 0){
-        addItem(() => [row]);
+
+      addItem([row])
+      addCount(count+1);
+      console.log(count)
       
-        updateCount(counter+1);
-      }
-      else{
-        // using the spread operator (...) we can copy all elements
-        addItem(prevItem => [row, ...prevItem] );
-      }
+
       
     }
     function clearList () {
-      addItem([]);
-      initialValue;
-      
+      addItem([])
+      addItem(() => [initialValue]);
+
+
     }
   return (
     <>
@@ -53,7 +52,9 @@ export default function App() {
           </form>
           <h2 className='roboto-bold'>Tasks</h2>
           <table>
-          {item}
+            <tbody>
+              {item}
+            </tbody>
           </table>
         </div>
           
