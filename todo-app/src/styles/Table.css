@@ -11,10 +11,6 @@
   'opsz' 24
 }
 
-td {
-  width: 20rem;
-  border: 1px solid black;
-}
 
 .deletebutton {
   border: none;
@@ -26,5 +22,10 @@ td {
   cursor: pointer;
 }
 
+
+.userinputtd {
+    width: 20rem;
+    border: 1px solid black;
+}
 
 

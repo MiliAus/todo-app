@@ -25,11 +25,10 @@ export default function App() {
       if (count === 0){
         addItem([row])
         addCount(count+1);
-        console.log(count)
       }
       else{
-        console.log(count)
         addItem(prevCount => [row, ...prevCount])
+        console.log(item.entries);
       }
       
 

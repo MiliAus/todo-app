@@ -5,10 +5,14 @@ import '../styles/Table.css';
 
 export default function TableRow({value}) {
 
+
+    function deleteItem(){
+        console.log('hello')
+    }
     return (
             <tr>
-                <td>{value} </td>
-                <button className='deletebutton' onClick={()=>{}}><span className='material-symbols-outlined'>delete</span></button>
+                <td className='userinputtd'>{value} </td>
+                <td><button className='deletebutton' onClick={deleteItem}><span className='material-symbols-outlined'>delete</span></button></td>
             </tr>
     );
 }
