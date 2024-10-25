@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Title from './components/Title.tsx';
-import TableRow from './components/Table.tsx';
+import TableRow from './components/TableRow.tsx';
 import './styles/Fonts.css';
 import './styles/App.css';
 
@@ -20,15 +20,20 @@ export default function App() {
 
       const formJson = Object.fromEntries(formData.entries()).myInput.toString();
       
-      let row = <TableRow value={formJson} />
+      let row = <TableRow id={count} value={formJson}/>
+      
 
       if (count === 0){
         addItem([row])
+        let count = 0;
+        <TableRow id={count} />
         addCount(count+1);
+        
       }
       else{
         addItem(prevCount => [row, ...prevCount])
-        console.log(item.entries);
+        addCount(count+1);
+
       }
       
 
@@ -38,8 +43,6 @@ export default function App() {
       addItem([])
       addItem(() => [initialValue]);
       addCount(0)
-
-
     }
   return (
     <>
