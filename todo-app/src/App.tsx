@@ -9,7 +9,6 @@ export default function App() {
     let initialValue = <i>Wow, so empty...you must be having a chill day.</i>
     const [item, addItem] = useState([initialValue]);
     const [count, addCount] = useState(0);
-    
 
     function handleItem(e){
       e.preventDefault();
@@ -20,30 +19,34 @@ export default function App() {
 
       const formJson = Object.fromEntries(formData.entries()).myInput.toString();
       
-      let row = <TableRow id={count} value={formJson}/>
+      let row = <TableRow state={{ item, addItem, count, addCount}} id={count} value={formJson}/>;
       
 
       if (count === 0){
-        addItem([row])
+        addItem([row]);
         let count = 0;
-        <TableRow id={count} />
+        <TableRow id={count} />;
+        console.log('Added a row with id: '+count);
         addCount(count+1);
-        
+       
       }
       else{
-        addItem(prevCount => [row, ...prevCount])
+        addItem(prevCount => [row, ...prevCount]);
+        console.log('Added a row with id: '+count);
         addCount(count+1);
+       
 
       }
       
-
       
     }
     function clearList () {
+      console.clear();
       addItem([])
       addItem(() => [initialValue]);
       addCount(0)
     }
+    
   return (
     <>
       <div className='container'>
