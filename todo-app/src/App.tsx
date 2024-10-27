@@ -8,6 +8,8 @@ import './styles/App.css';
 export default function App() {
     let initialValue = <i>Wow, so empty...you must be having a chill day.</i>
     const [item, addItem] = useState([initialValue]);
+    const [count, addCount] = useState(0);
+    
 
     function handleItem(e){
       e.preventDefault();
@@ -18,21 +20,24 @@ export default function App() {
 
       const formJson = Object.fromEntries(formData.entries()).myInput.toString();
       
-      let row = <TableRow state={{ item, addItem}} id={''} value={formJson}/>;
+
+      let id = generateUniqueId();
       
+      const row = <TableRow state={{ item, addItem }} id={{ id }} value={formJson}/>;
 
-      if (item.length == 1){
-        let id = generateUniqueId();
-        <TableRow id={id} />;
-        console.log('Added a row with id: '+id);
-       
+      if (count === 0) {
+        addItem(item.splice(0,1,row))
+        const newItem = [row];
+        addItem(newItem);
+        addCount(count+1)
+      
       }
-      else{
-        let id = generateUniqueId();
-        addItem(prevCount => [row, ...prevCount]);
-        console.log('Added a row with id: '+id);
-       
-
+      else {
+        
+        addItem([
+          ...item, row // Put old items at the end
+        ]);
+        addCount(count+1)
       }
       
       
@@ -41,6 +46,7 @@ export default function App() {
       console.clear();
       addItem([])
       addItem(() => [initialValue]);
+      addCount(0);
     }
 
     const generateUniqueId = () => {  
