@@ -8,7 +8,6 @@ import './styles/App.css';
 export default function App() {
     let initialValue = <i>Wow, so empty...you must be having a chill day.</i>
     const [item, addItem] = useState([initialValue]);
-    const [count, addCount] = useState(0);
 
     function handleItem(e){
       e.preventDefault();
@@ -19,21 +18,19 @@ export default function App() {
 
       const formJson = Object.fromEntries(formData.entries()).myInput.toString();
       
-      let row = <TableRow state={{ item, addItem, count, addCount}} id={count} value={formJson}/>;
+      let row = <TableRow state={{ item, addItem}} id={''} value={formJson}/>;
       
 
-      if (count === 0){
-        addItem([row]);
-        let count = 0;
-        <TableRow id={count} />;
-        console.log('Added a row with id: '+count);
-        addCount(count+1);
+      if (item.length == 1){
+        let id = generateUniqueId();
+        <TableRow id={id} />;
+        console.log('Added a row with id: '+id);
        
       }
       else{
+        let id = generateUniqueId();
         addItem(prevCount => [row, ...prevCount]);
-        console.log('Added a row with id: '+count);
-        addCount(count+1);
+        console.log('Added a row with id: '+id);
        
 
       }
@@ -44,7 +41,13 @@ export default function App() {
       console.clear();
       addItem([])
       addItem(() => [initialValue]);
-      addCount(0)
+    }
+
+    const generateUniqueId = () => {  
+      return 'xxxx-xxxx-xxx-xxxx'.replace(/[x]/g, (c) => {  
+            const r = Math.floor(Math.random() * 16);  
+            return r.toString(16);  
+      });  
     }
     
   return (
