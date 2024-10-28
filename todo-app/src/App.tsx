@@ -1,60 +1,47 @@
 import { useState } from 'react';
 import Title from './components/Title.tsx';
-import TableRow from './components/TableRow.tsx'
 import './styles/Fonts.css';
 import './styles/App.css';
+import './styles/Table.css';
+
+const initialRows = [{ id: '', value: "Wow, so empty...you must be having a chill day." }];
 
 
 export default function App() {
-    let initialValue = <i>Wow, so empty...you must be having a chill day.</i>
-    const [item, addItem] = useState([initialValue]);
-    const [count, addCount] = useState(0);
+
+  const [values, setValues] = useState('');
+  const [rows, setRows] = useState(
+    initialRows
+  );
+  
+  function handleClick() {
+    const insertAt = 0; // Could be any index
+    const nextRows = [
+      // Items before the insertion point:
+      ...rows.slice(0, insertAt),
+      // New item:
+      { id: generateUniqueId(), value:  values},
+      // Items after the insertion point:
+      ...rows.slice(insertAt)
+    ];
+    setRows(nextRows);
+    setValues('');
+  };
+
+  const generateUniqueId = () => {  
+    return 'xxxx-xxxx-xxx-xxxx'.replace(/[x]/g, (c) => {  
+          const r = Math.floor(Math.random() * 16);  
+          return r.toString(16);  
+    });  
+  };
+  function clearList () {
+    console.clear();
+    setRows([])
+    setRows(() => initialRows);
+  }
+  
+
     
-
-    function handleItem(e){
-      e.preventDefault();
-    
-
-      const form = e.target;
-      const formData = new FormData(form);
-
-      const formJson = Object.fromEntries(formData.entries()).myInput.toString();
-      
-
-      let id = generateUniqueId();
-      
-      const row = <TableRow state={{ item, addItem }} id={{ id }} value={formJson}/>;
-
-      if (count === 0) {
-        addItem(item.splice(0,1,row))
-        const newItem = [row];
-        addItem(newItem);
-        addCount(count+1)
-      
-      }
-      else {
-        
-        addItem([
-          ...item, row // Put old items at the end
-        ]);
-        addCount(count+1)
-      }
-      
-      
-    }
-    function clearList () {
-      console.clear();
-      addItem([])
-      addItem(() => [initialValue]);
-      addCount(0);
-    }
-
-    const generateUniqueId = () => {  
-      return 'xxxx-xxxx-xxx-xxxx'.replace(/[x]/g, (c) => {  
-            const r = Math.floor(Math.random() * 16);  
-            return r.toString(16);  
-      });  
-    }
     
   return (
     <>
@@ -63,17 +50,15 @@ export default function App() {
           <Title value={"My Daily Tasks"}/>
         </div>
         <div>
-          <form method='post' onSubmit={handleItem}>
-          <label>
-            <input name="myInput" className="myInput" placeholder="What is your first task?" />
-          </label>
-          <button type="submit" className='addbutton'>Add</button>
+          <input value={values} className="myInput" placeholder="What is your first task?" onChange={e => setValues(e.target.value)} />
+          <button onClick={handleClick} className='addbutton'>Add</button>
           <button onClick={clearList} type="reset" className='clearbutton'>Clear</button>
-          </form>
           <h2 className='roboto-bold'>Tasks</h2>
           <table>
             <tbody>
-              {item}
+              {rows.map(row => (
+                <td key={row.id}>{row.value}</td>
+              ))}
             </tbody>
           </table>
         </div>
