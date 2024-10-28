@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import Title from './components/Title.tsx';
-import TableRow from './components/TableRow.tsx';
 import './styles/Fonts.css';
 import './styles/App.css';
-import '../styles/Table.css';
+import './styles/Table.css';
 
 
 export default function App() {
@@ -23,7 +22,7 @@ export default function App() {
     const [count, addCount] = useState(0);
     
 
-    function handleItem(e){
+    function handleItem(e) {
       e.preventDefault();
     
 
@@ -31,20 +30,26 @@ export default function App() {
       const formData = new FormData(form);
 
       const formJson = Object.fromEntries(formData.entries()).myInput.toString();
-      
 
-      let id = generateUniqueId();
-
-      let row = (
-      <tr key={item.id}>
+      let row = 
+      <tr>
                 <td className='userinputtd'>{formJson}</td>
                 <td><button className='deletebutton' onClick={() => {
-                  addItem(item.filter(r => r.props.id.id !== item.props.id.id));
-                }
-                }><span className='material-symbols-outlined'>delete</span></button></td>
+                  addItem(item.filter(r => r.id !== r.id));
+                }}
+                ><span className='material-symbols-outlined'>delete</span></button></td>
       </tr>
-      );
-    
+      
+
+      if (count === 0){
+        addItem(item.splice(0,1));
+        addCount(count+1);
+      };
+      
+      function clearList() {
+        addItem([])
+        addCount(0);
+      };
     
   return (
     <>
@@ -63,7 +68,7 @@ export default function App() {
           <h2 className='roboto-bold'>Tasks</h2>
           <table>
             <tbody>
-              {item}
+              {row}
             </tbody>
           </table>
         </div>
@@ -73,4 +78,4 @@ export default function App() {
 
 
   );
-}
+}}
