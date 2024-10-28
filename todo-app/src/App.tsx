@@ -4,7 +4,7 @@ import './styles/Fonts.css';
 import './styles/App.css';
 import './styles/Table.css';
 
-const initialRows = [{ id: '', value: "Wow, so empty...you must be having a chill day." }];
+const initialRows = [{ id: '', value: 'Wow, so empty...you must be having a chill day.' }];
 
 
 export default function App() {
@@ -15,16 +15,8 @@ export default function App() {
   );
   
   function handleClick() {
-    const insertAt = 0; // Could be any index
-    const nextRows = [
-      // Items before the insertion point:
-      ...rows.slice(0, insertAt),
-      // New item:
-      { id: generateUniqueId(), value:  values},
-      // Items after the insertion point:
-      ...rows.slice(insertAt)
-    ];
-    setRows(nextRows);
+    const newObj =  { id: generateUniqueId(), value:  values};
+    setRows([...rows, newObj]);
     setValues('');
   };
 
@@ -57,7 +49,9 @@ export default function App() {
           <table>
             <tbody>
               {rows.map(row => (
-                <td key={row.id}>{row.value}</td>
+                <tr key={row.id}>
+                  <td>{row.value}</td>
+                </tr>
               ))}
             </tbody>
           </table>
