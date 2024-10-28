@@ -1,28 +1,17 @@
 import { useState } from 'react';
 import Title from './components/Title.tsx';
+import TableRow from './components/TableRow.tsx'
 import './styles/Fonts.css';
 import './styles/App.css';
-import './styles/Table.css';
 
 
 export default function App() {
-    let initialplaceholder = <i>Wow, so empty...you must be having a chill day.</i>
-    
-    const generateUniqueId = () => {  
-      return 'xxxx-xxxx-xxx-xxxx'.replace(/[x]/g, (c) => {  
-            const r = Math.floor(Math.random() * 16);  
-            return r.toString(16);  
-      });  
-    }
-    const initialValue = [
-      {id: generateUniqueId, value: initialplaceholder}
-    ];
-
-    const [item, addItem] = useState(initialValue);
+    let initialValue = <i>Wow, so empty...you must be having a chill day.</i>
+    const [item, addItem] = useState([initialValue]);
     const [count, addCount] = useState(0);
     
 
-    function handleItem(e) {
+    function handleItem(e){
       e.preventDefault();
     
 
@@ -30,26 +19,42 @@ export default function App() {
       const formData = new FormData(form);
 
       const formJson = Object.fromEntries(formData.entries()).myInput.toString();
-
-      let row = 
-      <tr>
-                <td className='userinputtd'>{formJson}</td>
-                <td><button className='deletebutton' onClick={() => {
-                  addItem(item.filter(r => r.id !== r.id));
-                }}
-                ><span className='material-symbols-outlined'>delete</span></button></td>
-      </tr>
       
 
-      if (count === 0){
-        addItem(item.splice(0,1));
-        addCount(count+1);
-      };
+      let id = generateUniqueId();
       
-      function clearList() {
-        addItem([])
-        addCount(0);
-      };
+      const row = <TableRow state={{ item, addItem }} id={{ id }} value={formJson}/>;
+
+      if (count === 0) {
+        addItem(item.splice(0,1,row))
+        const newItem = [row];
+        addItem(newItem);
+        addCount(count+1)
+      
+      }
+      else {
+        
+        addItem([
+          ...item, row // Put old items at the end
+        ]);
+        addCount(count+1)
+      }
+      
+      
+    }
+    function clearList () {
+      console.clear();
+      addItem([])
+      addItem(() => [initialValue]);
+      addCount(0);
+    }
+
+    const generateUniqueId = () => {  
+      return 'xxxx-xxxx-xxx-xxxx'.replace(/[x]/g, (c) => {  
+            const r = Math.floor(Math.random() * 16);  
+            return r.toString(16);  
+      });  
+    }
     
   return (
     <>
@@ -68,7 +73,7 @@ export default function App() {
           <h2 className='roboto-bold'>Tasks</h2>
           <table>
             <tbody>
-              {row}
+              {item}
             </tbody>
           </table>
         </div>
@@ -78,4 +83,4 @@ export default function App() {
 
 
   );
-}}
+}
