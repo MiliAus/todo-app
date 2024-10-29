@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   padding: 0;
   margin: 0;
+  top: 0;
   justify-content: center;
 }
 body {
@@ -15,8 +15,7 @@ body {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
+  font-size: 28px;  /* Preferred icon size */
   line-height: 1;
   text-transform: none;
   letter-spacing: normal;
@@ -36,3 +35,17 @@ body {
   font-feature-settings: 'liga';
 }
 
+.themeIcon {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  width: 25rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

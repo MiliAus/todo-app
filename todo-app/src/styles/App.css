@@ -44,6 +44,42 @@
 }
 
 .myInput {
-  width: 18rem;
+  width: 19.5rem;
   padding: 5px;
 }
+
+
+:root {
+  --background: white;
+  --text-primary: black; 
+}
+[data-theme='dark'] {
+  --background: rgba(0, 0, 0, 0.897);
+  --text-primary: white; 
+}
+
+.App {
+  color: var(--text-primary);
+  background-color: var(--background);
+  font-size: large;
+  padding: 20px;
+  height: calc(100vh - 40px);
+  transition: all .5s;
+
+}
+button {
+  color: var(--text-primary);
+  background-color: var(--background);
+  border: 2px var(--text-primary) solid;
+  float: right;
+  transition: all .5s;
+}
+
+.userinputtd {
+  width: 20rem;
+  border: 1px solid var(--text-primary);
+  background-color: white;
+  color: black;
+}
+
+
