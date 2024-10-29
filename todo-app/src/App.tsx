@@ -3,6 +3,7 @@ import Title from './components/Title.tsx';
 import './styles/Fonts.css';
 import './styles/App.css';
 import './styles/Table.css';
+import useLocalStorage from 'use-local-storage';
 
 const initialRows = [{ id: '', value: 'Wow, so empty...you must be having a chill day.' }];
 
@@ -16,7 +17,9 @@ export default function App() {
     initialRows
   );
   
-  
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+
   function handleClick() {
     setActive(true);
     const newObj =  { id: generateUniqueId(), value:  values};
@@ -46,36 +49,42 @@ export default function App() {
     setRows(initialRows);
     addCount(0);
   }
+
+  const switchTheme = () => {
+    const newTheme = theme === 'light' ? 'dark': 'light';
+    setTheme(newTheme);
+  }
   
 
     
     
   return (
     <>
+    <div className="App" data-theme={theme}>
       <div className='container'>
-        <div>
+          <div className='themeIcon'><span className='material-icons' onClick={switchTheme}>{theme === 'light' ? 'dark_mode' : 'light_mode'}</span></div>
           <Title value={"My Daily Tasks"}/>
-        </div>
         <div>
           <input value={values} className="myInput" placeholder="What is your first task?" onChange={e => setValues(e.target.value)} />
-          <button onClick={handleClick} className='addbutton'>Add</button>
           <button onClick={clearList} className='clearbutton'>Clear</button>
+          <button onClick={handleClick} className='addbutton'>Add</button>
           <h2 className='roboto-bold'>Tasks</h2>
           <table>
             <tbody>
               {rows.map(row => (
                 <tr key={row.id}>
                   <td className={isActive? 'userinputtd': ''}>{row.value}</td>
-                  {isActive && <td><button className='deletebutton' onClick={() => setRows(rows.filter(r => r.id !== row.id))}><span className='material-symbols-outlined'>delete</span></button></td>}
+                  {isActive && <td><button className='deletebutton' onClick={() => setRows(rows.filter(r => r.id !== row.id))}><span className='material-icons'>delete</span></button></td>}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-          
+          </div>
       </div>
     </>
 
 
   );
 }
+
