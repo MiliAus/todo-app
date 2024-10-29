@@ -10,14 +10,26 @@ const initialRows = [{ id: '', value: 'Wow, so empty...you must be having a chil
 export default function App() {
 
   const [values, setValues] = useState('');
+  const [count, addCount] = useState(0);
+  const [isActive, setActive] = useState(false);
   const [rows, setRows] = useState(
     initialRows
   );
   
+  
   function handleClick() {
+    setActive(true);
     const newObj =  { id: generateUniqueId(), value:  values};
-    setRows([...rows, newObj]);
-    setValues('');
+      if (count === 0){
+      setRows(rows.splice(0,1));
+      setRows([...rows, newObj]);
+      setValues('');
+      addCount(count+1);
+      } else{
+      setRows([...rows, newObj]);
+      setValues('');
+      }
+      
   };
 
   const generateUniqueId = () => {  
@@ -27,9 +39,12 @@ export default function App() {
     });  
   };
   function clearList () {
+    setActive(false);
     console.clear();
-    setRows([])
-    setRows(() => initialRows);
+    setRows([]);
+    const initialRows = [{ id: '', value: 'Wow, so empty...you must be having a chill day.' }];
+    setRows(initialRows);
+    addCount(0);
   }
   
 
@@ -44,13 +59,14 @@ export default function App() {
         <div>
           <input value={values} className="myInput" placeholder="What is your first task?" onChange={e => setValues(e.target.value)} />
           <button onClick={handleClick} className='addbutton'>Add</button>
-          <button onClick={clearList} type="reset" className='clearbutton'>Clear</button>
+          <button onClick={clearList} className='clearbutton'>Clear</button>
           <h2 className='roboto-bold'>Tasks</h2>
           <table>
             <tbody>
               {rows.map(row => (
                 <tr key={row.id}>
-                  <td>{row.value}</td>
+                  <td className={isActive? 'userinputtd': ''}>{row.value}</td>
+                  {isActive && <td><button className='deletebutton' onClick={() => setRows(rows.filter(r => r.id !== row.id))}><span className='material-symbols-outlined'>delete</span></button></td>}
                 </tr>
               ))}
             </tbody>
