@@ -18,5 +18,15 @@
   cursor: pointer;
 }
 
+.editbutton {
+  border: none;
+  background-color: transparent;
+  color: gray;
+}
+.editbutton:hover {
+  color: rgba(128, 128, 128, 0.61);
+  cursor: pointer;
+}
+
 
 
